@@ -1,34 +1,44 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">mitinori</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+  <div class="text-center">
+    <h1 class="text-3xl font-bold text-gray-900">ミチノリ</h1>
+    <ButtonPostCreate class="mt-12" />
+    <h2 class="text-xl font-bold mt-12">新着一覧</h2>
+    <PostList :posts="posts" class="mt-2" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import app from '../plugins/firebase'
+import PostList from '../components/partials/PostList.vue'
+import ButtonPostCreate from '../components/partials/ButtonPostCreate.vue'
+import { Post } from '../types/struct'
+import { toPost } from '../utils/transformer/toObject'
 
-export default Vue.extend({})
+type LocalData = {
+  hasNext: boolean
+  isProcessing: boolean
+  posts: Post[]
+}
+
+export default Vue.extend({
+  components: {
+    PostList,
+  },
+  async asyncData({ app }) {
+    const postDocuments = await app.$firestore
+      .collection('projects')
+      .get()
+    const posts = postDocuments.docs.map(
+      (postDocument): Post => {
+        return toPost(postDocument)
+      }
+    )
+    return {
+      posts
+    }
+  },
+})
 </script>
 
 <style>
@@ -37,34 +47,4 @@ export default Vue.extend({})
 @apply min-h-screen flex justify-center items-center text-center mx-auto;
 }
 */
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
 </style>
