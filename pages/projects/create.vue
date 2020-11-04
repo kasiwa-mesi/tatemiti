@@ -46,7 +46,7 @@ export default Vue.extend({
           createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
         })
         .then((ref) => {
-          this.$router.push(`/posts/${ref.id}`)
+          this.$router.push(`/projects/${ref.id}`)
         })
     }
   }
