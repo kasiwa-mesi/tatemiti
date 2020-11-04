@@ -14,7 +14,7 @@
         <client-only>
           <div class="flex items-center">
             <nuxt-link
-              to="/posts/create"
+              to="/projects/create"
               class="align-middle text-gray-700 mr-6"
             >
               <i class="mdi mdi-pencil" />

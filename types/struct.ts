@@ -9,8 +9,7 @@ export type Post = {
   }
 
   export type PostFormData = {
-    word: string
-    subWord: string
+    name: string
   }
 
   export type PostDocumentData = {

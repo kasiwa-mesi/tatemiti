@@ -3,7 +3,7 @@
     <ul>
       <li v-for="post in posts" :key="post.id">
         <div class="mb-4">
-          <nuxt-link :to="`/posts/${post.id}`">
+          <nuxt-link :to="`/projects/${post.id}`">
             <div
               class="border bg-white p-4 max-w-xl text-left mx-auto hover:bg-gray-200 hover:shadow"
               :class="[
@@ -13,10 +13,10 @@
               ]"
             >
               <p class="font-bold text-gray-700">
-                {{ post.word }}
+                {{ post.name }}
               </p>
               <p class="text-sm text-gray-600 truncate">
-                {{ post.subWord }}
+                {{ post.createdAt }}
               </p>
             </div>
           </nuxt-link>

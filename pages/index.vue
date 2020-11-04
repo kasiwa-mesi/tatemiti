@@ -2,7 +2,7 @@
   <div class="text-center">
     <h1 class="text-3xl font-bold text-gray-900">ミチノリ</h1>
     <ButtonPostCreate class="mt-12" />
-    <h2 class="text-xl font-bold mt-12">新着一覧</h2>
+    <h2 class="text-xl font-bold mt-12">みんなのプロジェクト</h2>
     <PostList :posts="posts" class="mt-2" />
   </div>
 </template>
