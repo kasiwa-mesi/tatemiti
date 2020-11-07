@@ -31,6 +31,7 @@ export default Vue.extend ({
 
           return `${year}/${monthIndex + 1}/${day} ${hour}:${minutes}`
       }
+      //message.textのhttps://で自動リンクをつける
   }
 })
 </script>
