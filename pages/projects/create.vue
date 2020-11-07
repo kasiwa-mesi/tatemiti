@@ -2,7 +2,7 @@
   <div class="text-center">
     <h1 class="text-2xl font-bold mb-8">新しいプロジェクトを作る</h1>
     <p v-if="errors.length">
-      <b>Please correct the following error(s):</b>
+      <b>入力内容に誤りがあります。</b>
       <ul>
         <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
       </ul>
@@ -47,9 +47,8 @@ export default Vue.extend({
 
       this.postFormData = this.postFormData as PostFormData
       if (!this.postFormData.name) {
-        this.errors.push('Name required.');
-      }
-
+        this.errors.push('入力フォームが空白です。');
+      } else {
       this.$firestore
         .collection('projects')
         .add({
@@ -59,6 +58,7 @@ export default Vue.extend({
         .then((ref) => {
           this.$router.push(`/projects/${ref.id}`)
         })
+      }
     }
   }
 })

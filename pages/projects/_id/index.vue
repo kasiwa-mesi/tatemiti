@@ -6,7 +6,7 @@
       >
       <h2 class="text-3xl mb-2 bg-white border border-black border-solid text-black font-normal px-10">{{ post.name }}</h2>
       </div>
-      <div class="update-listener">
+      <div class="update-listener inline-block fixed z-100">
         <button 
           v-if="isUpdating"
           class="border border-teal-500 text-teal-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-teal-600 focus:outline-none focus:shadow-outline"
@@ -26,6 +26,12 @@
         <span v-if="!isProcessing">もっと見る</span>
         <div v-else class="spinner"></div>
       </button>
+      <p v-if="errors.length">
+        <b>入力内容に誤りがあります。</b>
+        <ul>
+          <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+        </ul>
+      </p>
       <div class="input-layout">
         <ChatForm 
             v-model="messageFormData"
@@ -57,6 +63,7 @@ type LocalData = {
   isProcessing: Boolean
   isUpdating: Boolean
   messages: Array<Message>
+  errors: string[]
 }
 
 export default Vue.extend({
@@ -72,7 +79,8 @@ export default Vue.extend({
       isProcessing: false,
       isUpdating: false,
       hasNext: true,
-      messages: []
+      messages: [],
+      errors: []
     }
   },
   computed: {
@@ -127,7 +135,9 @@ export default Vue.extend({
       this.isSubmitting = true
 
       this.messageFormData = this.messageFormData as MessageFormData
-
+      if (!this.messageFormData.text) {
+        this.errors.push('入力フォームが空白です。');
+      } else {
       const projectId = this.$route.params.id
       this.$firestore
         .collection('projects')
@@ -141,6 +151,7 @@ export default Vue.extend({
             this.messageFormData.text = ''
             this.isUpdating = true
         })
+      }
     },
     async readMorePosts(): Promise<void> {
       this.isProcessing = true
@@ -184,6 +195,11 @@ export default Vue.extend({
   top: 10%;
   left: 40%;
 }
+
+.update-listener {
+  top: 16%;
+  left: 42%;
+}
 @media screen and (max-width: 768px) {
     .chats-layout {
         width: 75%;
@@ -193,17 +209,29 @@ export default Vue.extend({
       top: 10%;
       left: 31%;
     }
+    .update-listener {
+      top: 16%;
+      left: 33%;
+    }
 }
 @media screen and (max-width: 425px) {
     .project-title {
       top: 10%;
       left: 17%;
     }
+    .update-listener {
+      top: 16%;
+      left: 19%;
+    }
 }
 @media screen and (max-width: 320px) {
     .project-title {
       top: 10%;
       left: 8%;
+    }
+    .update-listener {
+      top: 16%;
+      left: 10%;
     }
 }
 
