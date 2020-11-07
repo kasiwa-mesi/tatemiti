@@ -33,6 +33,7 @@
         </ul>
       </p>
       <!-- v-ifでプロジェクト運営者かどうか判定 -->
+      <!-- 画像アップロード機能を追加 -->
       <div class="input-layout">
         <ChatForm 
             v-model="messageFormData"
