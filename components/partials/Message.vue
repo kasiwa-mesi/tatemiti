@@ -2,7 +2,7 @@
   <div class="chat-container">
     <div class="message-container">
       <div class="message text-left mt-4 whitespace-pre-wrap">{{ message.text }}</div>
-      <!-- <div class="message text-left mt-4 text-gray-500">{{ message.createdAt.toDate() | datetime }}</div> -->
+      <div class="message text-left mt-4 text-gray-500">{{ message.createdAt | datetime }}</div>
     </div>
   </div>
 </template>

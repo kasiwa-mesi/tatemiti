@@ -3,7 +3,7 @@
     <p class="text-sm text-gray-600">超簡単♪</p>
     <p class="text-gray-700 mb-1">あなたもプロジェクトを作ってみよう</p>
     <button
-      class="block mx-auto bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded"
+      class="block mx-auto bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded"
       @click="$router.push('/projects/create')"
     >
       <i class="mdi mdi-pencil mr-1" />

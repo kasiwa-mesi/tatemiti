@@ -1,13 +1,26 @@
 <template>
   <div class="text-center">
     <div class="py-8 px-4">
-      <h1 class="text-3xl mb-2">{{ post.name }}</h1>
+      <div
+        class="inline-block fixed z-100 project-title"
+      >
+      <h2 class="text-3xl mb-2 bg-white border border-black border-solid text-black font-normal px-10">{{ post.name }}</h2>
+      </div>
+      <div class="update-listener">
+        <button 
+          v-if="isUpdating"
+          class="border border-teal-500 text-teal-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-teal-600 focus:outline-none focus:shadow-outline"
+          @click="readUpdatingPosts"
+        >
+          最新の投稿があります。
+        </button>
+      </div>
       <div class="chats-layout">
         <messages :messages="messages"/>
       </div>
       <button
         v-show="hasNext && messages.length >= LIMIT"
-        class="bg-red-500 hover:bg-red-700 text-white font-bold h-10 w-32 rounded mt-4"
+        class="bg-green-500 hover:bg-green-700 text-white font-bold h-10 w-32 rounded mt-4"
         @click="readMorePosts"
       >
         <span v-if="!isProcessing">もっと見る</span>
@@ -42,6 +55,7 @@ type LocalData = {
   isSubmitting: Boolean
   hasNext: boolean
   isProcessing: Boolean
+  isUpdating: Boolean
   messages: Array<Message>
 }
 
@@ -56,6 +70,7 @@ export default Vue.extend({
       },
       isSubmitting: false,
       isProcessing: false,
+      isUpdating: false,
       hasNext: true,
       messages: []
     }
@@ -124,6 +139,7 @@ export default Vue.extend({
         })
         .then(() => {
             this.messageFormData.text = ''
+            this.isUpdating = true
         })
     },
     async readMorePosts(): Promise<void> {
@@ -151,6 +167,9 @@ export default Vue.extend({
       } finally {
         this.isProcessing = false
       }
+    },
+    async readUpdatingPosts(): Promise<void> {
+      window.location.reload()
     }
   }
 })
@@ -161,9 +180,31 @@ export default Vue.extend({
     width: 50%;
     margin-left: 25%;
 }
+.project-title {
+  top: 10%;
+  left: 40%;
+}
 @media screen and (max-width: 768px) {
     .chats-layout {
-        width: 100%;
+        width: 75%;
+        margin-left: 12%;
+    }
+    .project-title {
+      top: 10%;
+      left: 31%;
     }
 }
+@media screen and (max-width: 425px) {
+    .project-title {
+      top: 10%;
+      left: 17%;
+    }
+}
+@media screen and (max-width: 320px) {
+    .project-title {
+      top: 10%;
+      left: 8%;
+    }
+}
+
 </style>
