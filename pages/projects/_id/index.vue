@@ -32,6 +32,7 @@
           <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
         </ul>
       </p>
+      <!-- v-ifでプロジェクト運営者かどうか判定 -->
       <div class="input-layout">
         <ChatForm 
             v-model="messageFormData"
