@@ -9,15 +9,6 @@
         v-model="postFormData.name"
         >
       </div>
-      <!-- <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-        サブワード
-      </label>
-      <div class="form-label mt-5">
-        <input class="shadow appearance-none border border-grey-700 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
-        placeholder="word"
-        v-model="postFormData.subWord"
-        >
-      </div> -->
     <button
       class="block mx-auto bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded"
     >

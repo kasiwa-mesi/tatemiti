@@ -20,3 +20,19 @@ export type Post = {
     tags: string[]
     userId: string
   }
+
+  export type MessageDocumentData = {
+    id: string
+    text: string
+    createdAt: Date
+  }
+
+  export type MessageFormData = {
+      text: string
+  }
+
+  export type Message = {
+      id?: string
+      text?: string
+      createdAt?: Date
+  }

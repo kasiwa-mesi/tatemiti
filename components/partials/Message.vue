@@ -1,24 +1,36 @@
 <template>
   <div class="chat-container">
     <div class="message-container">
-      <div class="message">{{ messages.text }}</div>
+      <div class="message text-left mt-4 whitespace-pre-wrap">{{ message.text }}</div>
+      <!-- <div class="message text-left mt-4 text-gray-500">{{ message.createdAt.toDate() | datetime }}</div> -->
     </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+
+type LocalData = {
+  isSameDay: Boolean
+}
+
+export default Vue.extend ({
   props: ['message'],
-  data() {
+  data(): LocalData {
     return {
-      message: {
-        text: '今日も良い天気ですね',
-        user: {
-          thumbnail: 'https://pbs.twimg.com/profile_images/1131882065337602049/0JRUGd3S_400x400.jpg',
-          name: 'note'
-        }
-      }
+      isSameDay: true,
     }
   },
-}
+  filters: {
+      datetime(date) {
+          const day = date.getDate()
+          const monthIndex = date.getMonth()
+          const year = date.getFullYear()
+          const hour = date.getHours()
+          const minutes = date.getMinutes()
+
+          return `${year}/${monthIndex + 1}/${day} ${hour}:${minutes}`
+      }
+  }
+})
 </script>

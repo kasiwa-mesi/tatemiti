@@ -1,6 +1,8 @@
 import {
     Post,
-    PostDocumentData
+    PostDocumentData,
+    Message,
+    MessageDocumentData
   } from '../../types/struct'
   import { DocumentNotExistError } from '../../types/error'
 type Document = firebase.default.firestore.DocumentSnapshot<
@@ -20,6 +22,15 @@ export function toPost(doc: Document): Post {
     const _doc: any = doc
     return {
       ...toObject<PostDocumentData>(doc),
+      createdAt: _doc.data().createdAt.toDate(),
+    }
+  }
+
+export function toMessage(doc: Document): Message {
+    if (!doc.exists) throw new DocumentNotExistError()
+    const _doc: any = doc
+    return {
+      ...toObject<MessageDocumentData>(doc),
       createdAt: _doc.data().createdAt.toDate(),
     }
   }

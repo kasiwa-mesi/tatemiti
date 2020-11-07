@@ -11,8 +11,5 @@ export default {
   components: {
     Message
   },
-  mounted () {
-    console.log(this.messages)
-  }
 }
 </script>
