@@ -1,8 +1,18 @@
 <template>
   <div class="chat-container">
     <div class="message-container">
-      <div class="message text-left mt-4 whitespace-pre-wrap">{{ message.text }}</div>
-      <div class="message text-left mt-4 text-gray-500">{{ message.createdAt | datetime }}</div>
+      <!-- <div v-if="isURL" class="message text-left whitespace-pre-wrap">
+        <a :href="message.text" class="text-blue-400">{{ message.text }}</a>
+      </div> -->
+      <div class="message text-left whitespace-pre-wrap">
+          {{ message.text }}
+      </div>
+      <div v-show="message.link" class="message text-left whitespace-pre-wrap">
+        <a target='_blank' :href="message.link" class="text-blue-400">{{ message.link }}</a>
+      </div>
+      <div class="message text-left mt-2 text-gray-500">
+        {{ message.createdAt | datetime }}
+      </div>
     </div>
   </div>
 </template>
@@ -12,6 +22,8 @@ import Vue from 'vue'
 
 type LocalData = {
   isSameDay: Boolean
+  isURL: Boolean
+  url: string
 }
 
 export default Vue.extend ({
@@ -19,6 +31,8 @@ export default Vue.extend ({
   data(): LocalData {
     return {
       isSameDay: true,
+      isURL: false,
+      url: ''
     }
   },
   filters: {
@@ -30,8 +44,18 @@ export default Vue.extend ({
           const minutes = date.getMinutes()
 
           return `${year}/${monthIndex + 1}/${day} ${hour}:${minutes}`
-      }
+      },
       //message.textのhttps://で自動リンクをつける
+      // setURL(text) {
+      //   text = text.replace(/(http(s)?:\/\/[\x21-\x7e]+)/gi, "<a href='$1' target='_blank'>$1</a>");
+      //   // text = text.replace(/(http(s)?:\/\/[\x21-\x7e]+)/gi, "$1");
+      //   if (text.includes('http://' || 'https://')) {
+      //     // this.isURL = true
+      //     return text;
+      //   } else {
+      //     return text;
+      //   }
+      // }
   }
 })
 </script>

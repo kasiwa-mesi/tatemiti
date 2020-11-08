@@ -141,18 +141,38 @@ export default Vue.extend({
         this.errors.push('入力フォームが空白です。');
       } else {
       const projectId = this.$route.params.id
-      this.$firestore
-        .collection('projects')
-        .doc(projectId)
-        .collection('messages')
-        .add({
-          text: this.messageFormData.text,
-          createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
-        })
-        .then(() => {
-            this.messageFormData.text = ''
-            this.isUpdating = true
-        })
+      if (this.messageFormData.link) {
+        if (this.messageFormData.link.includes('http://') || this.messageFormData.link.includes('https://')) {
+          this.$firestore
+            .collection('projects')
+            .doc(projectId)
+            .collection('messages')
+            .add({
+              text: this.messageFormData.text,
+              link: this.messageFormData.link,
+              createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                this.messageFormData.text = ''
+                this.isUpdating = true
+            })
+        } else {
+          this.errors.push('URLの形式が正しくありません。');
+        }
+      } else {
+        this.$firestore
+          .collection('projects')
+          .doc(projectId)
+          .collection('messages')
+          .add({
+            text: this.messageFormData.text,
+            createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+          })
+          .then(() => {
+              this.messageFormData.text = ''
+              this.isUpdating = true
+          })
+      }
       }
     },
     async readMorePosts(): Promise<void> {
@@ -195,12 +215,18 @@ export default Vue.extend({
 }
 .project-title {
   top: 10%;
-  left: 40%;
+  left: 33%;
 }
 
 .update-listener {
   top: 16%;
-  left: 42%;
+  left: 33%;
+}
+@media screen and (max-width: 1024px) {
+.project-title {
+  top: 10%;
+  left: 27%;
+}
 }
 @media screen and (max-width: 768px) {
     .chats-layout {
@@ -209,31 +235,31 @@ export default Vue.extend({
     }
     .project-title {
       top: 10%;
-      left: 31%;
+      left: 16%;
     }
     .update-listener {
       top: 16%;
-      left: 33%;
+      left: 16%;
     }
 }
 @media screen and (max-width: 425px) {
     .project-title {
       top: 10%;
-      left: 17%;
+      left: 15%;
     }
     .update-listener {
       top: 16%;
-      left: 19%;
+      left: 15%;
     }
 }
 @media screen and (max-width: 320px) {
     .project-title {
       top: 10%;
-      left: 8%;
+      left: 6%;
     }
     .update-listener {
       top: 16%;
-      left: 10%;
+      left: 6%;
     }
 }
 

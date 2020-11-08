@@ -29,6 +29,7 @@ export type Post = {
 
   export type MessageFormData = {
       text: string
+      link?: string
   }
 
   export type Message = {
