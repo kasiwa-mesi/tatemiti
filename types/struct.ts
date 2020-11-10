@@ -30,10 +30,17 @@ export type Post = {
   export type MessageFormData = {
       text: string
       link?: string
+      imageURL?: string
   }
 
   export type Message = {
       id?: string
       text?: string
       createdAt?: Date
+  }
+
+  export type User = {
+    id: string
+    displayName: string
+    photoUrl: string
   }

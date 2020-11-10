@@ -10,6 +10,7 @@
       <div v-show="message.link" class="message text-left whitespace-pre-wrap">
         <a target='_blank' :href="message.link" class="text-blue-400">{{ message.link }}</a>
       </div>
+      <img :src="message.image">
       <div class="message text-left mt-2 text-gray-500">
         {{ message.createdAt | datetime }}
       </div>

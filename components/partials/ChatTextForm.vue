@@ -8,17 +8,33 @@
         v-model="messageFormData.text"
         >
         </textarea>
-        <input type="checkbox" id="checkbox" v-model="checked">
-        <label for="checkbox">urlを参照する。</label>
-        <div v-show="checked">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-            参考リンク
-          </label>
-          <div class="form-label mt-5">
-            <input class="shadow appearance-none border border-grey-700 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
-            placeholder="ex)https://example.com"
-            v-model="messageFormData.link"
-            >
+        <div class="flex flex-col">
+          <div class="flex">
+            <input class="mt-1 mr-1" type="checkbox" id="checkbox" v-model="linkChecked">
+            <label for="checkbox">urlを参照する。</label>
+          </div>
+          <div v-if="linkChecked">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+              参考リンク
+            </label>
+            <div class="form-label mt-5">
+              <input class="shadow appearance-none border border-grey-700 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+              placeholder="ex)https://example.com"
+              v-model="messageFormData.link"
+              >
+            </div>
+          </div>
+          <div class="flex">
+            <input class="mt-1 mr-1" type="checkbox" id="checkbox" v-model="uploadChecked">
+            <label for="checkbox">画像を投稿する</label>
+          </div>
+          <div v-if="uploadChecked">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+              画像アップロード
+            </label>
+            <div class="form-label mt-5">
+              <input type="file" @change="fileUpload" />
+            </div>
           </div>
         </div>
         <button
@@ -37,7 +53,8 @@ import { MessageFormData } from '../../types/struct'
 export default Vue.extend({
   data() {
     return {
-      checked: false
+      linkChecked: false,
+      uploadChecked: false,
     };
   },
   props: {
@@ -68,6 +85,17 @@ export default Vue.extend({
     handleSubmit(): void {
       this.$emit('submit')
     },
+    async fileUpload(event) {
+      let file = event.target.files[0];
+      const storageRef = this.$storage.ref("images/" + file.name);
+      const snapshot = await storageRef.put(file)
+      const url = await snapshot.ref.getDownloadURL()
+      this.messageFormData.imageURL = url
+      console.log(url)
+      // storageRef.put(file).then(() => {
+      //   console.log('uploaded file')
+      // });
+    }
   }
 })
 </script>

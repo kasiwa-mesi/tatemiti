@@ -13,6 +13,19 @@
       submit-label="作成"
       @submit="handleSubmit"
     />
+    <aside
+      v-show="!$auth.currentUser"
+      class="w-full h-full fixed left-0 top-0 bg-gray-800 bg-opacity-75 rounded z-50 flex items-center justify-center"
+    >
+      <div class="bg-white p-10 rounded">
+        <p class="font-bold">ログインしてプロジェクトをつくろう</p>
+        <p class="mb-8 mt-1 text-gray-600">作成にはログインが必要です</p>
+        <SignInButton class="mb-4" />
+        <nuxt-link to="/" class="text-xs underline text-green-600">
+          トップへ
+        </nuxt-link>
+      </div>
+    </aside>
   </div>
 </template>
 
@@ -20,6 +33,7 @@
 import Vue from 'vue'
 import { PostFormData } from '../../types/struct'
 import PostForm from '../../components/partials/PostForm.vue'
+import SignInButton from '~/components/common/signIn/SignInButton.vue'
 import { firebase } from '../../utils/externals/firebase'
 
 type LocalData = {
@@ -49,15 +63,28 @@ export default Vue.extend({
       if (!this.postFormData.name) {
         this.errors.push('入力フォームが空白です。');
       } else {
-      this.$firestore
-        .collection('projects')
-        .add({
-          name: this.postFormData.name,
-          createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
-        })
-        .then((ref) => {
-          this.$router.push(`/projects/${ref.id}`)
-        })
+      if (this.$auth.currentUser) {
+        this.$firestore
+          .collection('projects')
+          .add({
+            name: this.postFormData.name,
+            createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
+            userId: this.$auth.currentUser.uid,
+          })
+          .then((ref) => {
+            this.$router.push(`/projects/${ref.id}`)
+          })
+      } else {
+        this.$firestore
+          .collection('projects')
+          .add({
+            name: this.postFormData.name,
+            createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
+          })
+          .then((ref) => {
+            this.$router.push(`/projects/${ref.id}`)
+          })
+      }
       }
     }
   }

@@ -26,23 +26,30 @@
         <span v-if="!isProcessing">もっと見る</span>
         <div v-else class="spinner"></div>
       </button>
-      <p v-if="errors.length">
-        <b>入力内容に誤りがあります。</b>
-        <ul>
-          <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
-        </ul>
-      </p>
-      <!-- v-ifでプロジェクト運営者かどうか判定 -->
-      <!-- 画像アップロード機能を追加 -->
-      <div class="input-layout">
-        <ChatForm 
-            v-model="messageFormData"
-            :is-submitting="isSubmitting"
-            submit-label="作成"
-            @submit="handleSubmit"
-        />
+        <div
+        class="form-label"
+        v-if="$auth.currentUser"
+        >
+        <!-- <p>{{ $auth.currentUser }}</p> -->
+          <p v-if="errors.length">
+            <b>入力内容に誤りがあります。</b>
+            <ul>
+              <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+            </ul>
+          </p>
+          <!-- v-ifでプロジェクト運営者かどうか判定 -->
+          <!-- 画像アップロード機能を追加 -->
+          <div class="input-layout">
+            <ChatForm 
+                v-if="$auth.currentUser.uid === post.userId"
+                v-model="messageFormData"
+                :is-submitting="isSubmitting"
+                submit-label="作成"
+                @submit="handleSubmit"
+            />
+          </div>
+        </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -141,8 +148,7 @@ export default Vue.extend({
         this.errors.push('入力フォームが空白です。');
       } else {
       const projectId = this.$route.params.id
-      if (this.messageFormData.link) {
-        if (this.messageFormData.link.includes('http://') || this.messageFormData.link.includes('https://')) {
+      if (this.messageFormData.link && this.messageFormData.imageURL) {
           this.$firestore
             .collection('projects')
             .doc(projectId)
@@ -150,28 +156,78 @@ export default Vue.extend({
             .add({
               text: this.messageFormData.text,
               link: this.messageFormData.link,
+              image: this.messageFormData.imageURL,
+              createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                this.messageFormData.text = ''
+                this.messageFormData.link = ''
+                this.messageFormData.imageURL = ''
+                this.isUpdating = true
+            })
+      } else {
+        if (this.messageFormData.link) {
+          if (this.messageFormData.link.includes('http://') || this.messageFormData.link.includes('https://')) {
+            this.$firestore
+              .collection('projects')
+              .doc(projectId)
+              .collection('messages')
+              .add({
+                text: this.messageFormData.text,
+                link: this.messageFormData.link,
+                createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+              })
+              .then(() => {
+                  this.messageFormData.text = ''
+                  this.messageFormData.link = ''
+                  this.isUpdating = true
+              })
+          } else {
+            this.errors.push('URLの形式が正しくありません。');
+          }
+        } else {
+          this.$firestore
+            .collection('projects')
+            .doc(projectId)
+            .collection('messages')
+            .add({
+              text: this.messageFormData.text,
               createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
             })
             .then(() => {
                 this.messageFormData.text = ''
                 this.isUpdating = true
             })
-        } else {
-          this.errors.push('URLの形式が正しくありません。');
         }
-      } else {
-        this.$firestore
-          .collection('projects')
-          .doc(projectId)
-          .collection('messages')
-          .add({
-            text: this.messageFormData.text,
-            createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
-          })
-          .then(() => {
-              this.messageFormData.text = ''
-              this.isUpdating = true
-          })
+        if (this.messageFormData.imageURL) {
+            this.$firestore
+              .collection('projects')
+              .doc(projectId)
+              .collection('messages')
+              .add({
+                text: this.messageFormData.text,
+                image: this.messageFormData.imageURL,
+                createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+              })
+              .then(() => {
+                  this.messageFormData.text = ''
+                  this.messageFormData.imageURL = ''
+                  this.isUpdating = true
+              })
+        } else {
+            this.$firestore
+              .collection('projects')
+              .doc(projectId)
+              .collection('messages')
+              .add({
+                text: this.messageFormData.text,
+                createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+              })
+              .then(() => {
+                  this.messageFormData.text = ''
+                  this.isUpdating = true
+              })
+        }
       }
       }
     },

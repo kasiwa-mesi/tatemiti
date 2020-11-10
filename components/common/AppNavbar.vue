@@ -17,9 +17,13 @@
               to="/projects/create"
               class="align-middle text-gray-700 mr-6"
             >
-              <i class="mdi mdi-pencil" />
               <span class="hidden md:inline">作成</span>
             </nuxt-link>
+            <account-dropdown
+              v-if="$auth.currentUser"
+              :photo-url="$auth.currentUser.photoURL"
+            />
+            <sign-in-button-nav v-else />
           </div>
         </client-only>
       </div>
@@ -29,6 +33,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import accountDropdown from '../partials/AccountDropdown.vue'
+import signInButtonNav from '../common/signIn/SignInButtonNav.vue'
 
 export default Vue.extend({
   name: 'AppNavbar',

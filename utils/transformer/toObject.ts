@@ -1,4 +1,5 @@
 import {
+    User,
     Post,
     PostDocumentData,
     Message,
@@ -33,4 +34,9 @@ export function toMessage(doc: Document): Message {
       ...toObject<MessageDocumentData>(doc),
       createdAt: _doc.data().createdAt.toDate(),
     }
+  }
+
+  export function toUser(doc: Document): User {
+    if (!doc.exists) throw new DocumentNotExistError()
+    return toObject<User>(doc)
   }
