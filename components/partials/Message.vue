@@ -4,8 +4,8 @@
       <!-- <div v-if="isURL" class="message text-left whitespace-pre-wrap">
         <a :href="message.text" class="text-blue-400">{{ message.text }}</a>
       </div> -->
-      <div class="message text-left whitespace-pre-wrap">
-          {{ message.text }}
+      <div class="message text-left">
+        <p class="whitespace-pre-wrap">{{ message.text }}</p>
       </div>
       <div v-show="message.link" class="message text-left whitespace-pre-wrap">
         <a target='_blank' :href="message.link" class="text-blue-400">{{ message.link }}</a>

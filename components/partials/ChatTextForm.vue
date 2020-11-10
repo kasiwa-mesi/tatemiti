@@ -91,7 +91,7 @@ export default Vue.extend({
       const snapshot = await storageRef.put(file)
       const url = await snapshot.ref.getDownloadURL()
       this.messageFormData.imageURL = url
-      console.log(url)
+      // console.log(url)
       // storageRef.put(file).then(() => {
       //   console.log('uploaded file')
       // });

@@ -142,12 +142,48 @@ export default Vue.extend({
   methods: {
     async handleSubmit(): Promise<void> {
       this.isSubmitting = true
+      const projectId: string = this.$route.params.id
 
       this.messageFormData = this.messageFormData as MessageFormData
       if (!this.messageFormData.text) {
-        this.errors.push('入力フォームが空白です。');
+        if (this.messageFormData.link) {
+          if (this.messageFormData.link.includes('http://') || this.messageFormData.link.includes('https://')) {
+            this.$firestore
+              .collection('projects')
+              .doc(projectId)
+              .collection('messages')
+              .add({
+                text: this.messageFormData.text,
+                link: this.messageFormData.link,
+                createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+              })
+              .then(() => {
+                  this.messageFormData.text = ''
+                  this.messageFormData.link = ''
+                  this.isUpdating = true
+              })
+          } else {
+            this.errors.push('URLの形式が正しくありません。');
+          }
+        } else if (this.messageFormData.imageURL) {
+            this.$firestore
+              .collection('projects')
+              .doc(projectId)
+              .collection('messages')
+              .add({
+                text: this.messageFormData.text,
+                image: this.messageFormData.imageURL,
+                createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+              })
+              .then(() => {
+                  this.messageFormData.text = ''
+                  this.messageFormData.imageURL = ''
+                  this.isUpdating = true
+              })
+        } else {
+          this.errors.push('入力フォームが空白です。');
+        }
       } else {
-      const projectId = this.$route.params.id
       if (this.messageFormData.link && this.messageFormData.imageURL) {
           this.$firestore
             .collection('projects')
@@ -185,21 +221,7 @@ export default Vue.extend({
           } else {
             this.errors.push('URLの形式が正しくありません。');
           }
-        } else {
-          this.$firestore
-            .collection('projects')
-            .doc(projectId)
-            .collection('messages')
-            .add({
-              text: this.messageFormData.text,
-              createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
-            })
-            .then(() => {
-                this.messageFormData.text = ''
-                this.isUpdating = true
-            })
-        }
-        if (this.messageFormData.imageURL) {
+        } else if (this.messageFormData.imageURL) {
             this.$firestore
               .collection('projects')
               .doc(projectId)
