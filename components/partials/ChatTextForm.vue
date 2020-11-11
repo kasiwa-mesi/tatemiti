@@ -38,7 +38,7 @@
           </div>
         </div>
         <button
-            class="block mx-auto bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded"
+            class="block mx-auto mt-5 bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded"
         >
         <i class="mdi mdi-pencil mr-1" />
             作成
