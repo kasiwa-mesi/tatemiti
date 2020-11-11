@@ -85,7 +85,7 @@ export default Vue.extend({
     handleSubmit(): void {
       this.$emit('submit')
     },
-    async fileUpload(event) {
+    async fileUpload(event: any) {
       let file = event.target.files[0];
       const storageRef = this.$storage.ref("user/" + this.$auth.currentUser.uid + "/" + file.name);
       const snapshot = await storageRef.put(file)

@@ -37,7 +37,7 @@ export default Vue.extend ({
     }
   },
   filters: {
-      datetime(date) {
+      datetime(date: Date) {
           const day = date.getDate()
           const monthIndex = date.getMonth()
           const year = date.getFullYear()

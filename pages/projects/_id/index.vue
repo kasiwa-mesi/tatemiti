@@ -83,6 +83,8 @@ export default Vue.extend({
     return {
       messageFormData: {
         text: '',
+        link: '',
+        imageURL: ''
       },
       isSubmitting: false,
       isProcessing: false,
@@ -158,9 +160,11 @@ export default Vue.extend({
                 createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
               })
               .then(() => {
+                if (this.messageFormData) {
                   this.messageFormData.text = ''
                   this.messageFormData.link = ''
-                  this.isUpdating = true
+                }
+                this.isUpdating = true
               })
           } else {
             this.errors.push('URLの形式が正しくありません。');
@@ -176,9 +180,11 @@ export default Vue.extend({
                 createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
               })
               .then(() => {
+                if (this.messageFormData) {
                   this.messageFormData.text = ''
                   this.messageFormData.imageURL = ''
-                  this.isUpdating = true
+                }
+                this.isUpdating = true
               })
         } else {
           this.errors.push('入力フォームが空白です。');
@@ -196,10 +202,12 @@ export default Vue.extend({
               createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
             })
             .then(() => {
+              if (this.messageFormData) {
                 this.messageFormData.text = ''
                 this.messageFormData.link = ''
                 this.messageFormData.imageURL = ''
-                this.isUpdating = true
+              }
+              this.isUpdating = true
             })
       } else {
         if (this.messageFormData.link) {
@@ -214,8 +222,10 @@ export default Vue.extend({
                 createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
               })
               .then(() => {
+                if (this.messageFormData) {
                   this.messageFormData.text = ''
                   this.messageFormData.link = ''
+                }
                   this.isUpdating = true
               })
           } else {
@@ -232,9 +242,11 @@ export default Vue.extend({
                 createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
               })
               .then(() => {
+                if (this.messageFormData) {
                   this.messageFormData.text = ''
                   this.messageFormData.imageURL = ''
-                  this.isUpdating = true
+                }
+                this.isUpdating = true
               })
         } else {
             this.$firestore
@@ -246,7 +258,9 @@ export default Vue.extend({
                 createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
               })
               .then(() => {
+                if (this.messageFormData) {
                   this.messageFormData.text = ''
+                }
                   this.isUpdating = true
               })
         }

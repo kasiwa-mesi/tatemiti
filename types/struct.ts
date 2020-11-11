@@ -29,8 +29,8 @@ export type Post = {
 
   export type MessageFormData = {
       text: string
-      link?: string
-      imageURL?: string
+      link: string
+      imageURL: string
   }
 
   export type Message = {
