@@ -1,6 +1,6 @@
 export type Post = {
     id: string
-    title: string
+    name: string
     image: string
     subtitle: string
     hashtag: string
@@ -15,7 +15,7 @@ export type Post = {
 
   export type PostDocumentData = {
     id: string
-    title: string
+    name: string
     image: string
     subtitle: string
     hashtag: string

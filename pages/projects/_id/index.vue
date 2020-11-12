@@ -300,7 +300,7 @@ export default Vue.extend({
   },
   head() {
     const post = this.post! as Post
-    const title = `${post.title} | 継続するならミチノリ`
+    const title = `${post.name} | 継続するならミチノリ`
     return {
       title,
       meta: [
