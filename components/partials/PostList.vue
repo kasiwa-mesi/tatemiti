@@ -12,11 +12,11 @@
                   : 'rounded'
               ]"
             >
+              <div v-if="post.image" class="w-2/3 image-wrap">
+                <img :src="post.image">
+              </div>
               <p class="font-bold text-gray-700">
                 {{ post.name }}
-              </p>
-              <p class="text-sm text-gray-600 truncate">
-                {{ post.createdAt }}
               </p>
             </div>
           </nuxt-link>
@@ -54,3 +54,9 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.image-wrap {
+  margin-left: 15%;
+}
+</style>

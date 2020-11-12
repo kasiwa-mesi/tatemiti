@@ -9,6 +9,16 @@
         v-model="postFormData.name"
         >
       </div>
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+        画像アップロード
+      </label>
+      <div class="form-label mt-5">
+        <input type="file" @change="fileUpload" />
+      </div>
+      <div class="project-preview mt-5">
+        <p class="text-gray-700 text-sm font-bold">プレビュー</p>
+        <img :src="postFormData.imageURL">
+      </div>
       <button
         class="block mx-auto bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded"
       >
@@ -51,6 +61,14 @@ export default Vue.extend({
     handleSubmit(): void {
       this.$emit('submit')
     },
+    async fileUpload(event: any) {
+      let file = event.target.files[0];
+      // this.postFormData.imageURL = URL.createObjectURL(file)
+      const storageRef = this.$storage.ref("user/" + this.$auth.currentUser.uid + "/" + file.name);
+      const snapshot = await storageRef.put(file)
+      const url = await snapshot.ref.getDownloadURL()
+      this.postFormData.imageURL = url
+    }
   }
 })
 </script>
@@ -60,5 +78,9 @@ export default Vue.extend({
     width: 50%;
     margin-left: 24%;
     justify-content: center;
+}
+.project-preview {
+  width: 25%;
+  margin-left: 38%;
 }
 </style>

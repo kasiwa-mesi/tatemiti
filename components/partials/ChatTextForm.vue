@@ -35,6 +35,10 @@
             <div class="form-label mt-5">
               <input type="file" @change="fileUpload" />
             </div>
+            <div v-if="isUploading" class="project-preview mt-5">
+              <p class="text-gray-700 text-sm font-bold">プレビュー</p>
+              <img :src="messageFormData.imageURL">
+            </div>
           </div>
         </div>
         <button
@@ -55,6 +59,7 @@ export default Vue.extend({
     return {
       linkChecked: false,
       uploadChecked: false,
+      isUploading: false
     };
   },
   props: {
@@ -86,11 +91,13 @@ export default Vue.extend({
       this.$emit('submit')
     },
     async fileUpload(event: any) {
+      this.isUploading = true
       let file = event.target.files[0];
-      const storageRef = this.$storage.ref("user/" + this.$auth.currentUser.uid + "/" + file.name);
-      const snapshot = await storageRef.put(file)
-      const url = await snapshot.ref.getDownloadURL()
-      this.messageFormData.imageURL = url
+      this.messageFormData.imageURL = URL.createObjectURL(file)
+      // const storageRef = this.$storage.ref("user/" + this.$auth.currentUser.uid + "/" + file.name);
+      // const snapshot = await storageRef.put(file)
+      // const url = await snapshot.ref.getDownloadURL()
+      // this.messageFormData.imageURL = url
       // console.log(url)
       // storageRef.put(file).then(() => {
       //   console.log('uploaded file')
@@ -104,6 +111,10 @@ export default Vue.extend({
 .form-label {
     width: 50%;
     margin-left: 25%;
+}
+.project-preview {
+  width: 50%;
+  margin-left: 25%;
 }
 @media screen and (max-width: 480px) {
 .form-label {

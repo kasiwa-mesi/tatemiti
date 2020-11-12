@@ -10,6 +10,7 @@ export type Post = {
 
   export type PostFormData = {
     name: string
+    imageURL: string
   }
 
   export type PostDocumentData = {

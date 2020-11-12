@@ -50,6 +50,7 @@ export default Vue.extend({
     return {
       postFormData: {
         name: '',
+        imageURL: ''
       },
       isSubmitting: false,
       errors: []
@@ -68,6 +69,7 @@ export default Vue.extend({
           .collection('projects')
           .add({
             name: this.postFormData.name,
+            image: this.postFormData.imageURL,
             createdAt: firebase.default.firestore.FieldValue.serverTimestamp(),
             userId: this.$auth.currentUser.uid,
           })
