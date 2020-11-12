@@ -1,6 +1,8 @@
+require("dotenv").config();
+
 const baseName = 'ミチノリ'
 const baseDesc = '継続を習慣づける管理アプリ'
-const baseUrl = 'https://neta-tube.web.app'
+const baseUrl = 'https://mitinori.web.app'
 
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)

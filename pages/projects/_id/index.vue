@@ -301,8 +301,10 @@ export default Vue.extend({
   head() {
     const post = this.post! as Post
     const title = `${post.name} | 継続するならミチノリ`
+    const image = `${post.image}`
     return {
       title,
+      image,
       meta: [
         { property: 'og:title', hid: 'og:title', content: title },
         {
@@ -314,7 +316,7 @@ export default Vue.extend({
         {
           hid: 'og:image',
           property: 'og:image',
-          content: `${post.image}`
+          content: image
         }
       ]
     }
