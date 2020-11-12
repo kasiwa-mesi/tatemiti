@@ -1,9 +1,9 @@
 export type Post = {
     id: string
     title: string
+    image: string
     subtitle: string
     hashtag: string
-    tags: string[]
     userId: string
     createdAt: Date
   }
@@ -16,9 +16,9 @@ export type Post = {
   export type PostDocumentData = {
     id: string
     title: string
+    image: string
     subtitle: string
     hashtag: string
-    tags: string[]
     userId: string
   }
 

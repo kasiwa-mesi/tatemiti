@@ -4,7 +4,7 @@
       <div
         class="inline-block fixed z-100 project-title"
       >
-      <h2 class="text-3xl mb-2 bg-white border border-black border-solid text-black font-normal px-10">{{ post.name }}</h2>
+      <h2 class="text-xl md:text-lg sm:text-sm mb-2 bg-white border border-black border-solid text-black font-normal px-10">{{ post.name }}</h2>
       </div>
       <div class="update-listener inline-block fixed z-100">
         <button 
@@ -65,7 +65,7 @@ import { firebase, firestore } from '../../../utils/externals/firebase'
 const LIMIT: number = 20
 
 type LocalData = {
-//   post: Post | null
+  post: Post | null
   messageFormData: MessageFormData | null
   isSubmitting: Boolean
   hasNext: boolean
@@ -81,6 +81,7 @@ export default Vue.extend({
   },
   data(): LocalData {
     return {
+      post: null,
       messageFormData: {
         text: '',
         link: '',
@@ -295,6 +296,27 @@ export default Vue.extend({
     },
     async readUpdatingPosts(): Promise<void> {
       window.location.reload()
+    }
+  },
+  head() {
+    const post = this.post! as Post
+    const title = `${post.title} | 継続するならミチノリ`
+    return {
+      title,
+      meta: [
+        { property: 'og:title', hid: 'og:title', content: title },
+        {
+          property: 'og:url',
+          hid: 'og:url',
+          content: `${process.env.BASE_URL}/projects/${post.id}`
+        },
+        { name: 'twitter:title', hid: 'twitter:title', content: title },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: `${post.image}`
+        }
+      ]
     }
   }
 })
