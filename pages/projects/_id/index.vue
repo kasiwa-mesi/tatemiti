@@ -141,7 +141,24 @@ export default Vue.extend({
 
       this.messageFormData = this.messageFormData as MessageFormData
       if (!this.messageFormData.text) {
-        if (this.messageFormData.link) {
+        if (this.messageFormData.link && this.messageFormData.imageURL) {
+          this.$firestore
+            .collection('projects')
+            .doc(projectId)
+            .collection('messages')
+            .add({
+              link: this.messageFormData.link,
+              image: this.messageFormData.imageURL,
+              createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+              if (this.messageFormData) {
+                this.messageFormData.link = ''
+                this.messageFormData.imageURL = ''
+              }
+              this.isUpdating = true
+            })
+        } else if (this.messageFormData.link) {
           if (this.messageFormData.link.includes('http://') || this.messageFormData.link.includes('https://')) {
             this.$firestore
               .collection('projects')
