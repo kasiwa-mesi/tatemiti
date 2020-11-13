@@ -20,8 +20,6 @@ if (process.env.FIREBASE_MEASUREMENT_ID) {
   config.measurementId = process.env.FIREBASE_MEASUREMENT_ID
 }
 
-//defaultだと上手くいく。
-//多分,namespaceの知識が必要。
 export const app = !_firebase.default.apps.length
   ? _firebase.default.initializeApp(config)
   : _firebase.default.app()
