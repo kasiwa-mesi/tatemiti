@@ -299,7 +299,6 @@ export default Vue.extend({
     }
   },
   head() {
-    //netlifyでプレランダリングをやってみよう
     const post = this.post! as Post
     const title = `${post.name} | 継続するならミチノリ`
     const image = `${post.image}`
