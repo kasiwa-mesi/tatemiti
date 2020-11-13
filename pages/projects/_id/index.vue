@@ -109,14 +109,6 @@ export default Vue.extend({
         .orderBy('createdAt', "desc")
         .limit(LIMIT)
         .get()
-      //   .onSnapshot((snapshot) => {
-      //   snapshot.docChanges().forEach((change) => {
-      //     const doc = change.doc
-      //     if (change.type === 'added') {
-      //       this.messages.push({id: doc.id, text: doc.data().text, createdAt: doc.data().createdAt})
-      //     }
-      //   })
-      // })
         this.messages = messageDocument.docs.map(
           (messageDocument): Message => {
             return toMessage(messageDocument)
