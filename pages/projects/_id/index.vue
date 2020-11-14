@@ -4,7 +4,7 @@
       <div
         class="inline-block fixed z-100 project-title"
       >
-      <h2 class="text-xl md:text-lg sm:text-sm mb-2 bg-white border border-black border-solid text-black font-normal px-10">{{ post.name }}</h2>
+      <h2 class="text-xs lg:text-2xl xl:text-xl md:text-lg sm:text-sm mb-2 bg-white border border-black border-solid text-black font-normal px-10">{{ post.name }}</h2>
       <div class="flex">
         <p class="text-sm border border-black bg-white text-black">
           投稿主：<nuxt-link :to="`/users/${user.id}/projects`" class="underline">
