@@ -64,7 +64,7 @@ export default Vue.extend({
     async fileUpload(event: any) {
       let file = event.target.files[0];
       // this.postFormData.imageURL = URL.createObjectURL(file)
-      const storageRef = this.$storage.ref("user/" + this.$auth.currentUser.uid + "/" + file.name);
+      const storageRef = this.$storage.ref("user/" + this.$auth.currentUser.uid + "/project/" + file.name);
       const snapshot = await storageRef.put(file)
       const url = await snapshot.ref.getDownloadURL()
       this.postFormData.imageURL = url

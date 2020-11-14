@@ -3,7 +3,8 @@ import {
     Post,
     PostDocumentData,
     Message,
-    MessageDocumentData
+    MessageDocumentData,
+    PostFormData
   } from '../../types/struct'
   import { DocumentNotExistError } from '../../types/error'
 type Document = firebase.default.firestore.DocumentSnapshot<
@@ -24,6 +25,13 @@ export function toPost(doc: Document): Post {
     return {
       ...toObject<PostDocumentData>(doc),
       createdAt: _doc.data().createdAt.toDate(),
+    }
+  }
+
+  export function toPostFormData(post: Post): PostFormData {
+    return {
+      name: post.name,
+      imageURL: post.image
     }
   }
 

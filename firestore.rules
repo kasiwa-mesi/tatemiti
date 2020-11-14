@@ -18,18 +18,29 @@ service cloud.firestore {
       match /{projectId} {
         allow create: if true
           && request.auth.uid == incomingData().userId
-          && validateString(incomingData().name, 0, 512);
+          && validateString(incomingData().name, 0, 512)
+          && validateString(incomingData().image, 0, 512)
           match /messages/{messageId} {
             allow create: if true
               || validateString(incomingData().text, 0, 512)
               || validateString(incomingData().link, 0, 512)
               || validateString(incomingData().image, 0, 512)
           }
+        allow update: if true
+          && request.auth.uid == existingData().userId
+          && request.auth.uid == incomingData().userId
+          && validateString(incomingData().name, 0, 512)
+          && validateString(incomingData().image, 0, 512)
+          && incomingData().createdAt == existingData().createdAt
       }
     }
   }
   function incomingData() {
     return request.resource.data;
+  }
+
+  function existingData() {
+    return resource.data;
   }
 
   function validateString(text, min, max) {

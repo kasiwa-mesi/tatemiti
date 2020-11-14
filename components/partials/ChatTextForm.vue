@@ -94,7 +94,7 @@ export default Vue.extend({
       this.isUploading = true
       let file = event.target.files[0];
       // this.messageFormData.imageURL = URL.createObjectURL(file)
-      const storageRef = this.$storage.ref("user/" + this.$auth.currentUser.uid + "/" + file.name);
+      const storageRef = this.$storage.ref("user/" + this.$auth.currentUser.uid + "/message/" + file.name);
       const snapshot = await storageRef.put(file)
       const url = await snapshot.ref.getDownloadURL()
       this.messageFormData.imageURL = url

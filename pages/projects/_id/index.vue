@@ -281,6 +281,7 @@ export default Vue.extend({
       this.isProcessing = true
       try {
         const projectId = this.$route.params.id
+        console.log(projectId)
         const messageDocument = await firestore
             .collection('projects')
             .doc(projectId)
