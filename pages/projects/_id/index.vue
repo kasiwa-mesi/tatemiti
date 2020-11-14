@@ -29,7 +29,7 @@
           最新の投稿があります。
         </button>
       </div>
-      <div class="chats-layout">
+      <div class="chats-layout mt-12">
         <messages :messages="messages"/>
       </div>
       <button
