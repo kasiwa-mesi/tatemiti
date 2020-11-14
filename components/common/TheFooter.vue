@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-gray-100 py-8 text-gray-600 text-center">
+  <div class="w-full bg-green-500 py-8 text-white text-center">
     created by
     <a
       href="https://twitter.com/kasiwa9494"
