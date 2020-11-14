@@ -5,6 +5,11 @@
         class="inline-block fixed z-100 project-title"
       >
       <h2 class="text-xl md:text-lg sm:text-sm mb-2 bg-white border border-black border-solid text-black font-normal px-10">{{ post.name }}</h2>
+      <p class="text-gray-600 text-sm">
+        作者：<nuxt-link :to="`/users/${user.id}/projects`" class="underline">
+          {{ user.displayName }}
+        </nuxt-link>
+      </p>
       </div>
       <div class="update-listener inline-block fixed z-100">
         <button 
@@ -56,8 +61,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { DocumentNotExistError } from '../../../types/error'
-import { Post, Message, MessageFormData } from '../../../types/struct'
-import { toPost, toMessage } from '../../../utils/transformer/toObject'
+import { User, Post, Message, MessageFormData } from '../../../types/struct'
+import { toUser, toPost, toMessage } from '../../../utils/transformer/toObject'
 import Messages from '../../../components/partials/Messages.vue'
 import ChatForm from '../../../components/partials/ChatTextForm.vue'
 import { firebase, firestore } from '../../../utils/externals/firebase'
@@ -66,6 +71,7 @@ const LIMIT: number = 20
 
 type LocalData = {
   post: Post | null
+  user: User | null
   messageFormData: MessageFormData | null
   isSubmitting: Boolean
   hasNext: boolean
@@ -82,6 +88,7 @@ export default Vue.extend({
   data(): LocalData {
     return {
       post: null,
+      user: null,
       messageFormData: {
         text: '',
         link: '',
@@ -122,8 +129,13 @@ export default Vue.extend({
         .doc(id)
         .get()
       const post = toPost(postDocument)
+      const userDocument = await app.$firestore
+        .collection('users')
+        .doc(post.userId)
+        .get()
       return {
         post,
+        user: toUser(userDocument)
       }
     } catch (e) {
       if (e instanceof DocumentNotExistError) {
