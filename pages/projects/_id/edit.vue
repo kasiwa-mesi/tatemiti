@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1 class="text-2xl font-bold mb-8">「{{ post.name }}」を編集</h1>
+    <h1 class="text-2xl font-bold mb-8">{{ post.name }}を編集</h1>
     <PostForm
       v-model="postFormData"
       :is-submitting="isSubmitting"

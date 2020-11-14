@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <h1 class="text-3xl font-bold text-gray-900">ミチノリ</h1>
+    <h1 class="text-3xl font-bold text-gray-900">タテミチ</h1>
     <ButtonPostCreate class="mt-12" />
     <h2 class="text-xl font-bold mt-12">みんなのプロジェクト</h2>
     <PostList :posts="posts" class="mt-2" />

@@ -8,7 +8,7 @@
       >
         <nuxt-link to="/">
           <span class="text-gray-900 font-bold text-sm md:text-lg">
-              ミチノリ
+              タテミチ
           </span>
         </nuxt-link>
         <client-only>
