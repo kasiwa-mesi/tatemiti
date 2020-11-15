@@ -37,24 +37,6 @@ export default Vue.extend({
     return {
       posts
     }
-  },
-  head() {
-    return {
-      meta: [
-        { property: 'og:title', hid: 'og:title', content: 'タテミチ' },
-        {
-          property: 'og:url',
-          hid: 'og:url',
-          content: `${process.env.BASE_URL}`
-        },
-        { name: 'twitter:title', hid: 'twitter:title', content: 'タテミチ' },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: `${process.env.BASE_URL}` + '/image.jpg'
-        }
-      ]
-    }
   }
 })
 </script>
