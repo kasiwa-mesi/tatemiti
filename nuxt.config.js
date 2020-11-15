@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const baseName = 'タテミチ'
 const baseDesc = '継続を習慣づける管理アプリ'
-const baseUrl = 'https://tatemiti.netlify.app'
+const baseUrl = 'https://tatemichi.netlify.app'
 
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
