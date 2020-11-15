@@ -19,7 +19,7 @@
               class="block px-4 py-2 text-gray-800 hover:bg-gray-300 hover:text-gray-900"
             >
               <i class="mdi mdi-home mr-1" />
-              プロジェクトを始める
+              プロジェクト作成
             </nuxt-link>
             <nuxt-link
               :to="`/users/${$auth.currentUser.uid}/projects`"
