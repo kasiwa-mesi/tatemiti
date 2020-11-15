@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "site": "mitinori",
+    "site": "tatemiti",
     "public": "dist",
     "ignore": [
       "firebase.json",
