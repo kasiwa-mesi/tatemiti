@@ -23,7 +23,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: baseUrl + '/image.jpg'
+        content: baseUrl + '/tatemiti.jpg'
       },
       { property: 'article:publisher', content: 'FacebookURL' },
       { property: 'fb:app_id', content: 'FacebookAppID' },
