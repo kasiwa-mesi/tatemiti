@@ -1,8 +1,8 @@
 require("dotenv").config();
 
-const baseName = 'ミチノリ'
+const baseName = 'タテミチ'
 const baseDesc = '継続を習慣づける管理アプリ'
-const baseUrl = 'https://mitinori.web.app'
+const baseUrl = 'https://tatemiti.netlify.app'
 
 export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
@@ -10,7 +10,7 @@ export default {
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'ミチノリ',
+    title: 'タテミチ',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
