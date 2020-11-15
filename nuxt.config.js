@@ -23,7 +23,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: baseUrl + '/image.png'
+        content: baseUrl + '/image.jpg'
       },
       { property: 'article:publisher', content: 'FacebookURL' },
       { property: 'fb:app_id', content: 'FacebookAppID' },
