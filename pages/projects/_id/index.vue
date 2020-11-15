@@ -328,7 +328,7 @@ export default Vue.extend({
   head() {
     const post = this.post! as Post
     const title = `${post.name} | 継続するならタテミチ`
-    const image = `${post.image}`
+    const image = post.image ? `${post.image}` : `${process.env.BASE_URL}` + '/image.jpg'
     return {
       title,
       image,
