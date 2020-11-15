@@ -186,13 +186,11 @@ export default Vue.extend({
               .doc(projectId)
               .collection('messages')
               .add({
-                text: this.messageFormData.text,
                 link: this.messageFormData.link,
                 createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
               })
               .then(() => {
                 if (this.messageFormData) {
-                  this.messageFormData.text = ''
                   this.messageFormData.link = ''
                 }
                 this.isUpdating = true
@@ -206,13 +204,11 @@ export default Vue.extend({
               .doc(projectId)
               .collection('messages')
               .add({
-                text: this.messageFormData.text,
                 image: this.messageFormData.imageURL,
                 createdAt: firebase.default.firestore.FieldValue.serverTimestamp()
               })
               .then(() => {
                 if (this.messageFormData) {
-                  this.messageFormData.text = ''
                   this.messageFormData.imageURL = ''
                 }
                 this.isUpdating = true
