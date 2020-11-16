@@ -23,13 +23,13 @@
       <div class="update-listener inline-block fixed z-100">
         <button 
           v-if="isUpdating"
-          class="border border-teal-500 text-teal-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-teal-600 focus:outline-none focus:shadow-outline"
+          class="border border-teal-500 text-teal-500 rounded-md px-4 py-2 m-2 mt-8 transition duration-500 ease select-none hover:text-white hover:bg-teal-600 focus:outline-none focus:shadow-outline"
           @click="readUpdatingPosts"
         >
           最新の投稿があります。
         </button>
       </div>
-      <div class="chats-layout mt-12">
+      <div class="chats-layout mt-20">
         <messages :messages="messages"/>
       </div>
       <button
