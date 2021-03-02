@@ -1,7 +1,4 @@
 # tatemiti
-## リファクタリング中
-参考url: https://zenn.dev/kasiwa/scraps/d01e19228d74ff
-
 ## Build Setup
 
 ```bash
